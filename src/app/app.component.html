@@ -1,20 +1,39 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<mdb-carousel [isControls]="true" class="carousel slide carousel-fade" [animation]="'slide'" [interval]="0" [(activeSlide)]="activeSlide" (activeSlideChange)="activeSlideChange()">
+  <div id="wrapper">
+    <mdb-slide *ngFor="let category of serviceCategories">
+      <div class="card">
+        <img style="height: 80vH;" class="d-block" src="assets/img/{{category.imageFile}}" alt="First slide">
+        <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
+        <div class="card-body">
+          <div style="height: 20vh;">
+            <h1 class="h3-responsive">{{category.name}}</h1>
+            <h2>{{category.catchyPhrase}}</h2>
+            <p>{{category.description}}</p>
+          </div>
+        </div>
+      </div>
+    </mdb-slide>
+  </div>
+</mdb-carousel>
 
+<div *ngIf="activeCategory" >
+  <div *ngFor="let service of activeCategory.services" class="jumbotron">
+  <div class="container-fluid">
+    <div class="col-g-3" >
+      <img [src]="'/assets/img/' + service.imageFile" alt="{{service.title}}">
+    </div>
+    <div class="col-g-6">
+      <h3>{{service.title}}</h3>
+      <h4>{{service.catchyPhrase}}</h4>
+      <p>{{service.description}}</p>
+      <p>{{service.href}}</p>
+    </div>
+    <div class="col-g-3">
+      <h3>Kontakt:</h3>
+      <h4 *ngFor="let contact of service.contactpersons">
+        {{contact.name}}
+      </h4>
+    </div>
+  </div>
+  </div>
+</div>
