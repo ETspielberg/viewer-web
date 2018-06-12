@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ServicecategoryService} from './service/servicecategory.service';
 import {ServiceCategory} from './model/ServiceCategory';
-//import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import {ActiveSlide} from './model/ActiveSlide';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   serviceCategories: ServiceCategory[];
 
-  activeSlide = 0;
+  activeSlide: ActiveSlide;
 
   activeCategory: ServiceCategory;
 
@@ -24,15 +24,13 @@ export class AppComponent implements OnInit {
     this.servicecategoryService.getAll().subscribe(
       data => {
         this.serviceCategories = data;
-        this.activeSlide = 0;
-        this.activeCategory = this.serviceCategories[this.activeSlide];
-          console.log(this.activeCategory );
+        this.activeSlide = new ActiveSlide('', 0);
+        this.activeCategory = this.serviceCategories[this.activeSlide.relatedTarget];
       }
     );
   }
 
   activeSlideChange() {
-    this.activeCategory = this.serviceCategories[this.activeSlide];
-    console.log(this.activeCategory);
+    this.activeCategory = this.serviceCategories[this.activeSlide.relatedTarget];
   }
 }
